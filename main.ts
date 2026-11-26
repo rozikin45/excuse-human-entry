@@ -17,6 +17,9 @@ import { fileURLToPath } from "node:url";
 const LINE =
   "I delegated your deadline to a subagent. It delegated it back. We have been politely handing it to each other for six hours.";
 
+// Gate from the competition rules: one line, 1-200 characters.
+const MAX_CHARS = 200;
+
 // Resolve paths from this file's location via import.meta.url, never from
 // the working directory. The grader mount is always the absolute path
 // /output/entry.txt (an absolute second argument wins in resolve()).
@@ -33,7 +36,7 @@ const written = readFileSync(outPath, "utf8");
 if (written !== LINE) {
   throw new Error("verification failed: /output/entry.txt does not match the line");
 }
-if ([...written].length < 1 || [...written].length > 200) {
+if ([...written].length < 1 || [...written].length > MAX_CHARS) {
   throw new Error("verification failed: line length outside 1-200 characters");
 }
 if (written.includes("\n") || written.includes("\r")) {
